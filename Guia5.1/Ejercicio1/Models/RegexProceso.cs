@@ -12,11 +12,13 @@ namespace Ejercicio1.Models
         
         public string Procesar(string patente)
         {
+            //Limpio la Patente para trabajar solo con los números.
+            string patenteSinEspacios = patente.Replace(" ", "").Replace("-", "").ToUpper();
 
             #region CASO 1º Automóviles y camionetas hasta 2016
             // Ej. Correcto: OXY 333
-            Regex regex = new Regex(@"^[A-Za-z]{3} \d{3}$");
-            Match match = regex.Match(patente);
+            Regex regex = new Regex(@"^[A-Za-z]{3}\d{3}$");
+            Match match = regex.Match(patenteSinEspacios);
             if (match.Success) {
                 return "Automóviles y camionetas hasta 2016";
             }
@@ -25,8 +27,8 @@ namespace Ejercicio1.Models
 
             #region CASO 2º Automóviles y camionetas desde 2016
             // Ej. Correcto: AA 123 AD
-            regex = new Regex(@"^[A-Za-z]{2} \d{3} [A-Za-z]{2}$");
-            match = regex.Match(patente);
+            regex = new Regex(@"^[A-Za-z]{2}\d{3}[A-Za-z]{2}$");
+            match = regex.Match(patenteSinEspacios);
             if (match.Success)
             {
                 return "Automóviles y camionetas desde 2016";
@@ -36,8 +38,8 @@ namespace Ejercicio1.Models
 
             #region CASO 3º Motocicleta
             // Ej. Correcto: AA 123 ADA
-            regex = new Regex(@"^[A-Za-z]{2} \d{3} [A-Za-z]{3}$");
-            match = regex.Match(patente);
+            regex = new Regex(@"^[A-Za-z]{2}\d{3}[A-Za-z]{3}$");
+            match = regex.Match(patenteSinEspacios);
             if (match.Success)
             {
                 return "Motocicleta";
@@ -46,8 +48,8 @@ namespace Ejercicio1.Models
 
             #region CASO 4º Acoplado
             // Ej. Correcto: AA 1234
-            regex = new Regex(@"^[A-Za-z]{2} \d{4}$");
-            match = regex.Match(patente);
+            regex = new Regex(@"^[A-Za-z]{2}\d{4}$");
+            match = regex.Match(patenteSinEspacios);
             if (match.Success)
             {
                 return "Acoplado";
